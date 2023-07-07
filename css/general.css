@@ -1,0 +1,224 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* font-size: 10px; */
+  /* 10px / 16px = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting*/
+  font-size: 62.5%;
+
+  /* only works when object is not absolutely positioned 
+  in relation to the body  */
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: #555;
+  background-color: #fdf2e9;
+  overflow-x: hidden;
+}
+.container {
+  /* can also use 1140px */
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 3.6rem;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.flex-cl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+}
+.search__input {
+  width: 100%;
+  padding: 1.2rem;
+  border: none;
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: inherit;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+}
+.cart-icon {
+  height: 4rem;
+  width: 4rem;
+}
+.heading-primary,
+.heading-secondary,
+.heading-tertiary {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #333;
+}
+
+.heading-primary {
+  font-size: 5.2rem;
+  line-height: 1.05;
+  margin-bottom: 3.2rem;
+}
+
+.heading-secondary {
+  font-size: 4.4rem;
+  line-height: 1.2;
+  margin-bottom: 9.6rem;
+}
+.margin-bottom--sm {
+  margin-bottom: 4.8rem !important;
+}
+
+.heading-tertiary {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
+}
+
+.sub-heading {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #cf711f;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.75px;
+}
+.link-btn {
+  display: inline-block;
+  font-size: 1.8rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  background-color: #fff;
+}
+.link-btn:hover {
+  color: #cf711f;
+}
+.btn,
+.btn:link,
+.btn:visited {
+  display: inline-block;
+  font-size: 2rem;
+  padding: 1.6rem 3.2rem;
+  text-decoration: none;
+  border-radius: 9px;
+  font-weight: 600;
+
+  /* FOR BUTTON */
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  /* TRICK TO ANIMATE BUTTON COLOR */
+  transition: all 0.3s;
+}
+
+.btn--search {
+  background-color: #e67e22;
+  color: #fdf2e9;
+}
+.btn--search:hover {
+  background-color: #cf711f;
+  color: #fdf2e9;
+}
+
+.btn--form {
+  background-color: #45260a;
+  color: #fdf2e9;
+  padding: 1.2rem;
+}
+
+.btn--form:hover {
+  background-color: #fff;
+  color: #555;
+}
+.btn--start:link,
+.btn--start:visited {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+.btn--start:hover,
+.btn--start:active {
+  background-color: #cf711f;
+}
+
+.btn--learn:link,
+.btn--learn:visited {
+  background-color: #fff;
+  color: #555;
+}
+
+.btn--learn:hover,
+.btn--learn:active {
+  background-color: #fdf2e9;
+
+  /* TRICK TO ADD BORDER INSIDE */
+  box-shadow: inset 0 0 0 3px #fff;
+}
+.grid {
+  display: grid;
+  gap: 9.6rem;
+}
+
+.grid:not(:last-child) {
+  margin-bottom: 9.6rem;
+}
+
+.grid--2-column {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3-column {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--4-column {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--5-column {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid--center-v {
+  align-items: center;
+}
+.link:link,
+.link:visited {
+  display: inline-block;
+  color: #e67e22;
+  text-decoration: none;
+  padding: 2px;
+  border-bottom: 1px solid currentColor;
+  transition: all 0.3s;
+}
+.link:hover,
+.link:active {
+  color: #cf711f;
+  border-bottom: 1px solid transparent;
+}
+/* HELPER/SETTINGS CLASSES */
+.center-text {
+  text-align: center;
+}
+.margin-right-sm {
+  margin-right: 1.6rem !important;
+}
+
+strong {
+  font-weight: 500;
+}
