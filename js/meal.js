@@ -1,4 +1,38 @@
 //////////////////////////////////////
+// Sticky Navigation
+const sectionHeroEL = document.querySelector(".restaurant-section");
+let bodyEL = document.body;
+// const cartBtn = document.querySelector(".btn-cart");
+// const smallCartbtn = document.querySelector(".btn--cart-sm");
+
+const obs = new IntersectionObserver(
+  function (entries) {
+    const ent = entries[0];
+    if (!ent.isIntersecting) {
+      bodyEL.classList.add("sticky");
+    } else {
+      bodyEL.classList.remove("sticky");
+    }
+  },
+  {
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
+  }
+);
+
+obs.observe(sectionHeroEL);
+
+// ///////////////////////////////////////////
+// FOR THE NAV BUTTON
+let btnNavEL = document.querySelector(".btn-mobile-nav");
+let headerEL = document.querySelector(".header");
+
+btnNavEL.addEventListener("click", function () {
+  headerEL.classList.toggle("nav-open");
+});
+
+//////////////////////////////////////
 // Slider
 const slider = function () {
   const slides = document.querySelectorAll(".slide");

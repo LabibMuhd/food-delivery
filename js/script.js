@@ -22,6 +22,15 @@ const obs = new IntersectionObserver(
 );
 
 obs.observe(sectionHeroEL);
+
+// ///////////////////////////////////////////
+// FOR THE NAV BUTTON
+let btnNavEL = document.querySelector(".btn-mobile-nav");
+let headerEL = document.querySelector(".header");
+
+btnNavEL.addEventListener("click", function () {
+  headerEL.classList.toggle("nav-open");
+});
 //////////////////////////////////////
 // Slider
 const slider = function () {
@@ -83,15 +92,17 @@ const slider = function () {
     goToSlide(curSlide);
     activateDot(curSlide);
   };
-
+  // on click listeners
   btnRight.addEventListener("click", nextSlide);
   btnLeft.addEventListener("click", prevSlide);
 
+  // on keyboard press listener
   document.addEventListener("keydown", function (e) {
     if (e.key === "ArrowLeft") prevSlide();
     e.key === "ArrowRight" && nextSlide();
   });
 
+  // so u can click the dots as well
   dotContainer.addEventListener("click", function (e) {
     if (e.target.classList.contains("dots__dot")) {
       const { slide } = e.target.dataset;

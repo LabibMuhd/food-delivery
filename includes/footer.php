@@ -20,7 +20,7 @@
           </li>
         </ul>
         <p class="copyright">Copyright &copy;
-          <span class="year">2027</span> by Omnifood, inc. All rights reserved
+          <span class="year">2023</span> by Omnifood, inc. All rights reserved
         </p>
       </div>
       <div class="footer-address">

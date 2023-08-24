@@ -1,7 +1,7 @@
 <?php 
 include('connect/connect.php');
 include("functions/function.php");
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +11,10 @@ include("functions/function.php");
  
   <link rel="stylesheet" href="css/general.css?v=<?php echo time(); ?>">
   <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="css/queries.css?v=<?php echo time(); ?>">
   <title>Food</title>
 
-  <script defer src="js/index.js?v=<?php echo time(); ?>"></script>
+  <script defer src="js/script.js?v=<?php echo time(); ?>"></script>
 </head>
 <body>
   
@@ -21,47 +22,57 @@ include("functions/function.php");
     <a href="#">
       <img src="img/omnifood-logo.png" alt="Omnifood logo" class="logo" />
     </a>
-    
-    <form action="" method="get" class="search">
+   
+    <form action="users/search.php" method="post" class="search">
       <input type="text" class="search__input" placeholder="Search item" name="search_data">
-      <button class="btn btn--search" name="search" type="submit">
-        search
-      </button>
-      <div class="cart-icon--box">
-          <a href="cart.php" class="cart-link"><ion-icon class='cart-icon' name="cart-outline"></ion-icon>
-          </a>
-          <span class='cart-notification'>3</span>
-          <!-- <?php // cart_item(); ?> -->
-      </div>
+      <input class="btn btn--search" name="search" type="submit" value="search">
     </form>
+      
 
-    <nav class="main-nav flex">
+    <nav class="main-nav">
       <ul class="main-nav-list">
         <li><a class="main-nav-link" href="index.php">Home</a></li>
         <li><a class="main-nav-link" href="users/meals.php">Menu</a></li>
-        <li><a class="main-nav-link category-box" href="#">Categories
-        <div class="categories">
-          <ul class="category-list">
-          <li class="category-item"><button class="link-btn">Rice Based</button></li>
-          <li class="category-item"><button class="link-btn">Beans Based</button></li>
-          <li class="category-item"><button class="link-btn">Bread Based</button></li>
-          <li class="category-item"><button class="link-btn">Swallow</button></li>
-          <li class="category-item"><button class="link-btn">Snacks and small chops</button></li>
-          <li class="category-item"><button class="link-btn">Drinks and beverages</button></li>
-          </ul>
-        </div>
-        </a></li>
-        <li><a class="main-nav-link nav-cta" href="users/signin.php">Sign in</a></li>    
+        <li><div class="cart-icon--box hidden">
+          <a href="users/cart.php" class="cart-link"><ion-icon class='cart-icon' name="cart-outline"></ion-icon>
+          </a>
+          <!-- <span class='cart-notification'>3</span> -->
+          <?php cart_item(); ?>
+      </div></li>
+        <?php 
+        if(!isset($_SESSION['name'])){
+          echo "<li><a class='main-nav-link nav-cta' href='users/signin.php'>Sign in</a></li>";
+        }
+        else{
+          echo "<li>
+                  <a href='users/profile.php' class='main-nav-link'>
+                    <div class='flex'>
+                      <ion-icon name='person-outline' class='contact-icon'></ion-icon>
+                      <span>Hi,</span> 
+                      <span class='capitalize'>".$_SESSION['name']."</span>
+                    </div>
+                  </a>
+                </li>
+          ";
+        }
+        ?>         
       </ul>      
     </nav>
-
     
-
-    <button class="btn-mobile-nav">
-      <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
-      <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
-    </button>
+    
+    <div class="mobile-btn-cart">
+      <div class="cart-icon--box">
+        <a href="users/cart.php" class="cart-link"><ion-icon class='cart-icon' name="cart-outline"></ion-icon>
+        </a>
+        <?php cart_item(); ?>
+      </div>
+      <button class="btn-mobile-nav">
+        <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
+        <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>      
+      </button>
+    </div>
   </header>
+  
 
   <main>
     <!-- HERO SECTION -->
@@ -78,7 +89,6 @@ include("functions/function.php");
           <a href="users/signup.php" class="btn btn--start margin-right-sm">
             Start eating well
           </a>
-          <a href="#how" class="btn btn--learn"> Learn more &darr; </a>
         </div>
 
         <div class="hero-img-box">
@@ -90,7 +100,7 @@ include("functions/function.php");
         </div>
       </div>
     </section>
-
+    <!-- RESTAURANT SECTION -->
     <section class="restaurant-section" id='how'>
       <div class="container center-text">
         <span class="sub-heading">Restraunts</span>
@@ -98,58 +108,38 @@ include("functions/function.php");
           Choose from a variety of restraunts
         </h2>
       </div>
-      <!-- <div class="container">
-        <div class="flex"> -->
           <div class="slider">
+          <?php 
+            $get_ip = getIPAddress();
+            $select_query = "Select * from admin_restaurant";
+            $result=mysqli_query($con,$select_query);
+            while($row=mysqli_fetch_assoc($result)){
+              $id=$row['id'];
+              $logo= $row['logo'];
+              $name=$row['restaurant_name'];
+          ?>
             <div class="slide">
               <div class="restaurant">
                 <div class="restaurant-box">
-                  <figure class="restauarant-info">
-                    <img src="img/omnifood-logo.png" alt="Japanese Gyozas" class="restaurant-img" />
-                  </figure>
+                <a href="users/meals.php?menu=<?php echo $id ?>#meals">
+                    <button class="restaurant-info">
+                    <img <?php echo "src='admin/food_img/$logo' alt='$name'"?> class="restaurant-img" />
+                    </button>
+                </a>
                 </div>
-                <p class="meal-name">Omnifood</p>
+                <p class="meal-name"><?php echo $name?></p>
               </div>
             </div>
-            <div class="slide">
-              <div class="restaurant">
-                <div class="restaurant-box">
-                  <figure class="restauarant-info">
-                    <img src="img/omnifood-logo.png" alt="Japanese Gyozas" class="restaurant-img" />
-                  </figure>
-                </div>
-                <p class="meal-name">Omnifood</p>
-              </div>
-            </div>
-            <div class="slide">
-              <div class="restaurant">
-                <div class="restaurant-box">
-                  <figure class="restauarant-info">
-                    <img src="img/omnifood-logo.png" alt="Japanese Gyozas" class="restaurant-img" />
-                  </figure>
-                </div>
-                <p class="meal-name">Omnifood</p>
-              </div>
-            </div>
-            <div class="slide">
-              <div class="restaurant">
-                <div class="restaurant-box">
-                  <figure class="restauarant-info">
-                    <img src="img/omnifood-logo.png" alt="Japanese Gyozas" class="restaurant-img" />
-                  </figure>
-                </div>
-                <p class="meal-name">Omnifood</p>
-              </div>
-            </div>
+            <?php
+            } 
+            ?>
             <button class="slider__btn slider__btn--left">&larr;</button>
             <button class="slider__btn slider__btn--right">&rarr;</button>
             <div class="dots"></div>
           </div>
-        <!-- </div>
-      </div> -->
-    </section>
-        
 
+    </section>
+    <!-- MEALS-SECTION -->
     <section class="meals-section" id="meals">
       <div class="container center-text">
         <span class="sub-heading">Meals</span>
@@ -159,127 +149,63 @@ include("functions/function.php");
       </div>
 
       <div class="container grid grid--2-column margin-bottom-md">
+      <?php
+      $select_menu_query = "Select * from menu limit 0,6";
+      $result_menu=mysqli_query($con,$select_menu_query);
+      while($row=mysqli_fetch_assoc($result_menu)){
+        $menu_id=$row['id'];
+        $menu_title=$row['name'];
+        $menu_desc=$row['meal_desc'];
+        $keyword=$row['keyword'];
+        $category=$row['category'];
+        $price=$row['price'];
+        $food_img=$row['food_img'];
+        $user_id = $row['user_id'];
+        $delivery = $row['delivery_time'];
+      ?>
       <div class="meals">
-      <a href="users/details.php">
-        <img src="img/meals/jollof rice.jpg" alt="Japanese Gyozas" class="meals-img" />
+      <a href="users/details.php?menu_id=<?php echo $menu_id?>" class="menu-link">
+      <div class="img-box">
+        <img <?php echo "src='admin/food_img/$food_img' alt='$menu_title'"?> class="meals-img" />        
+      </div>  
+      <div class="meal-content">
+        <p class="meal-name"><?php echo $menu_title?></p>
+        <ul class="meal-attributes">
+          <li class="meal-attribute">
+            <ion-icon class="meal-icon" name="list-outline"></ion-icon>
+            <span><?php echo $category?></span>
+          </li>
+          <li class="meal-attribute">
+            <ion-icon class="meal-icon" name="time-outline"></ion-icon>
+            <span><?php echo $delivery?></span>
+          </li>
+          <li class="meal-attribute">
+            <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
+            <span>
+            <?php 
+            $select_restaurant="Select restaurant_name from admin_restaurant where id=$user_id";
+            $result_restaurant=mysqli_query($con,$select_restaurant);
+            $row=mysqli_fetch_assoc($result_restaurant);
+            $res_name=$row['restaurant_name'];
+            echo $res_name
+            ?>
+            </span>
+          </li>
+        </ul>
+      </div>
       </a>
-          <div class="meal-content">
-           
-
-            <p class="meal-name">Jollof Rice</p>
-            <ul class="meal-attributes">
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="list-outline"></ion-icon>
-                <span>Rice based</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="time-outline"></ion-icon>
-                <span><strong>15</strong> mins</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span>Riddle House</span>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-cl ">
-            <p class="meal-price">₦ 1500</p>
-            <button class="btn btn--search" name="order" type="submit">
-              add to cart
-            </button>
-          </div>
-        </div>
-
-        <div class="meals">
-          <img src="img/meals/swallow.jpg" alt="swallow" class="meals-img" />
-          <div class="meal-content">
-            
-            <p class="meal-name">Pounded Yam and vegetable Soup</p>
-            <ul class="meal-attributes">
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="list-outline"></ion-icon>
-                <span>swallow</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="time-outline"></ion-icon>
-                <span><strong>1</strong> hour</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span>GrubHub</span>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-cl ">
-            <p class="meal-price">₦ 6500</p>
-            <button class="btn btn--search" name="order" type="submit">
-              add to cart
-            </button>
-          </div>
-        </div>
-
-        <div class="meals">
-          <img src="img/meals/chin chin.jpg" alt="chin chin" class="meals-img" />
-          <div class="meal-content">
-            
-            <p class="meal-name">Chin Chin</p>
-            <ul class="meal-attributes">
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="list-outline"></ion-icon>
-                <span>Snacks and small chops</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="time-outline"></ion-icon>
-                <span><strong>1</strong> hour</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span>GrubHub</span>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-cl ">
-            <p class="meal-price">₦ 2650</p>
-            <button class="btn btn--search" name="order" type="submit">
-              add to cart
-            </button>
-          </div>
-        </div>
-
-        <div class="meals">
-          <img src="img/meals/pasta.jpg" alt="pasta" class="meals-img" />
-          <div class="meal-content">
-            
-            <p class="meal-name">pasta</p>
-            <ul class="meal-attributes">
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="list-outline"></ion-icon>
-                <span>Side dishes</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="time-outline"></ion-icon>
-                <span><strong>1</strong> hour</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span>GrubHub</span>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-cl ">
-            <p class="meal-price">₦ 4650</p>
-            <button class="btn btn--search" name="order" type="submit">
-              add to cart
-            </button>
-          </div>
-        </div>
+      <div class="flex-end">
+        <span class="meal-price end-text">₦ <?php echo $price?></span>
       </div>
+    </div>
+<?php } ?>
+</div>
+<div class="container all-recipes">
+  <a href="users/meals.php" class="link">See all meals &rarr;</a>
+</div>
+</section>
+</main>
 
-      <div class="container all-recipes">
-        <a href="users/meals.php" class="link">See all meals &rarr;</a>
-      </div>
-    </section>
-  </main>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -303,7 +229,7 @@ include("functions/function.php");
           </li>
         </ul>
         <p class="copyright">Copyright &copy;
-          <span class="year">2027</span> by Omnifood, inc. All rights reserved
+          <span class="year">2023</span> by Omnifood, inc. All rights reserved
         </p>
       </div>
       <div class="footer-address">

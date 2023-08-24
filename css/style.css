@@ -17,6 +17,10 @@
 /*****************************/
 /* MOBILE */
 /****************************/
+.mobile-btn-cart {
+  display: none;
+}
+
 .btn-mobile-nav {
   border: none;
   background: none;
@@ -93,6 +97,9 @@
 .main-nav-link.nav-cta:active {
   background-color: #cf711f;
 }
+.navigation-item {
+  text-transform: capitalize;
+}
 
 .cart-link {
   display: inline-block;
@@ -118,38 +125,31 @@
   align-items: center;
   justify-content: center;
 }
-.category-box {
-  position: relative;
+
+/*****************************/
+/* forgot password SECTION */
+/****************************/
+.account-section {
+  padding: 4.8rem 0 9.6rem 0;
 }
-.categories {
-  font-size: 1.8rem;
-  /* height: 30rem; */
-  width: 20rem;
-  /* border-radius: 11px; */
-  background-color: #fff;
-  color: #333;
-  position: absolute;
-  bottom: -30rem;
-  left: -4rem;
-  padding: 2rem;
-  opacity: 0;
-  /* right: 0.05rem; */
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
+.account-card {
+  width: 60rem;
+  background-color: #cf711c;
+  box-shadow: 0 0 3.2rem rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  color: #45260a;
+
+  padding: 2rem 4rem;
 }
-.categories:hover,
-.categories:active {
-  opacity: 1;
-}
-.category-list {
+.forgot_form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 2rem;
-  transition: all 0.3s;
-  list-style: none;
+  margin-top: 1.5rem;
+}
+
+.forgot_form button {
+  width: 50%;
 }
 /*****************************/
 /* HERO SECTION */
@@ -215,7 +215,7 @@
   padding: 4.8rem 0 9.6rem 0;
 }
 .restaurant {
-  width: 15rem;
+  width: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -239,6 +239,11 @@
   transform: scale(1.05);
   box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.06);
 }
+.restaurant-info {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
 /*****************************/
 /* MEALS SECTION */
 /****************************/
@@ -253,6 +258,15 @@
   border-radius: 11px;
   overflow: hidden;
   transition: all 0.4s;
+}
+
+.flex-end {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+.end-text {
+  align-self: end;
 }
 
 .meals:hover {
@@ -281,18 +295,6 @@
   text-transform: uppercase;
   color: #333;
   border-radius: 100px;
-}
-
-.tag--vegetarian {
-  background-color: #51cf66;
-}
-
-.tag--vegan {
-  background-color: #94d82d;
-}
-
-.tag--paleo {
-  background-color: #ffd43b;
 }
 
 .meal-name {
@@ -336,6 +338,34 @@
   text-align: center;
 }
 
+.menu-grid {
+  display: grid;
+  grid-template-columns: 0.6fr 2fr;
+}
+
+.restaurants {
+  background-color: #eb984e;
+  color: #fff;
+  margin-top: 4.6rem;
+  padding: 5rem 1.8rem;
+}
+
+/*****************************/
+/* DETAILS */
+/****************************/
+.meals-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.meal_img {
+  align-self: center;
+  justify-self: center;
+}
+.meals-img--desc {
+  width: 80rem;
+}
 /*****************************/
 /* SIGNUP/SIGNIN SECTION */
 /****************************/
@@ -406,6 +436,8 @@
   font-weight: 700;
   margin-bottom: 1.2rem;
 }
+
+.qty-form input,
 .cta-form input,
 .cta-form select {
   width: 100%;
@@ -624,6 +656,529 @@
   align-items: center;
   justify-content: center;
 }
-.meals-img--desc {
+
+/*****************************/
+/* ADMIN SECTION */
+/****************************/
+.admin-control_section {
+  padding: 4.6rem 0 9.6rem;
+}
+.admin-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+.meal-img--sm {
+  width: 20rem;
+}
+.heading-admin {
+  font-size: 4.4rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 6rem;
+}
+.btn-logout {
+  background-color: red;
+}
+.btn-logout:hover {
+  background-color: darkred;
+}
+
+/*****************************/
+/* VIEW MENU (admin)*/
+/****************************/
+.heading-box {
+  display: grid;
+  grid-template-columns: 0.5fr repeat(2, 2fr) 1fr 1fr repeat(2, 0.5fr);
+  background-color: #eb984e;
+  padding: 2rem;
+}
+.heading {
+  font-size: 2.4rem;
+  color: #fff;
+}
+/*****************************/
+/* orders list (admin)*/
+/****************************/
+.orders-box {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr 2fr 1.2fr 2fr 0.8fr;
+  background-color: #eb984e;
+  column-gap: 2rem;
+  padding: 2rem;
+}
+.product-style {
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.form__radio-group:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.form__radio-group {
+  display: flex;
+  align-items: center;
+}
+
+.form__radio-input {
+  display: none;
+}
+
+.form__radio-label {
+  font-size: 2rem;
+  position: relative;
+  padding-left: 4rem;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.form__radio-button {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: -0.4rem;
+  left: 0;
+}
+.form__radio-button::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
+  opacity: 1;
+}
+/*****************************/
+/* CART */
+/****************************/
+.cart-section {
+  padding: 9.6rem 4.8rem;
+}
+
+.cart-container {
+  max-width: 130rem;
+  margin: 0 auto;
+}
+
+.cart-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  background-color: #e67e22;
+  color: #fff;
+  font-size: 2rem;
+  padding: 1.3rem;
+  grid-template-columns: 2fr repeat(2, 1fr);
+  margin-bottom: 2rem !important;
+}
+
+.cart-img {
+  width: 12rem;
+}
+.qty-form {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-right: 3rem;
+}
+.cart-item {
+  display: grid;
+  padding: 1.3rem;
+  gap: 5rem;
+  grid-template-columns: 3fr repeat(2, 2fr);
+}
+.cart-delete {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.8rem;
+  color: #cf711f;
+}
+.subtotal_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.subtotal {
+  grid-column: 3;
+  border-top: 5px solid #cf711f;
+  border-radius: 2px;
+}
+.total {
+  margin: 1.2rem 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.amount {
+  font-size: 3rem;
+  color: #e67e22;
+  font-weight: 600;
+}
+
+/*****************************/
+/* MENU SECTION */
+/****************************/
+
+.menu-section {
+  padding: 9.6rem 0 9.6rem;
+}
+.menu-div {
+  padding: 2rem 0;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.category-box {
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  padding: 2rem;
+  height: 100vh;
+  background-color: #e67e22;
+}
+.category-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  transition: all 0.3s;
+  list-style: none;
+}
+.category-list li {
+  text-transform: capitalize;
+  font-size: 2rem;
+}
+/*****************************/
+/* checkout */
+/****************************/
+.checkout-section {
+  padding: 4.6rem 0 9.6rem;
+}
+.contact-cart {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+.contact__option {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+.contact-text {
+  font-size: 1.4rem;
+}
+.contact-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.delivery_detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #fff;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.delivery_heading {
+  display: flex;
+  align-items: center;
+}
+.delivery_heading--option {
+  display: flex;
+  gap: 1rem;
+}
+.delivery_details-more {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  border: 0.2px solid #000;
+}
+.delivery_type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.delivery--product-info {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.checkout_grid {
+  display: grid;
+  grid-template-columns: 1fr 35rem;
+  gap: 2rem;
+}
+
+.checkout {
+  background-color: #fff;
+  padding: 2rem;
+}
+.heading-sub {
+  font-size: 2.2rem;
+}
+
+.product-type {
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.cart-info {
+  display: flex;
+  gap: 1.6rem;
+  flex-direction: column;
+}
+.total-amt {
+  margin: 1.2rem 0;
+  display: grid;
+  align-items: center;
+  /* font-size: 2.5rem; */
+  gap: 2rem;
+}
+.total-price {
+  font-size: 3rem;
+}
+/*****************************/
+/* payment */
+/****************************/
+.payment-section {
+  padding: 4.6rem 0 9.6rem;
+}
+
+.payment {
+  margin: 10rem auto;
+  background-color: #fff;
+  padding: 3rem;
+  box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.3);
+}
+.form-group input {
+  width: 100%;
+  padding: 1.2rem;
+  border: 1px solid #cf711c;
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: inherit;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+}
+
+/*****************************/
+/* account */
+/****************************/
+.account_grid {
+  display: grid;
+  grid-template-columns: 35rem 1fr;
+  gap: 2rem;
+}
+.big--gap {
+  gap: 2rem;
+}
+.text-transform--capitalize {
+  text-transform: capitalize !important;
+}
+.account-option {
+  background-color: #fff;
+  padding: 2rem;
+  height: fit-content;
+}
+.account-information {
+  background-color: #fff;
+  padding: 2rem;
+}
+.account-card-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+}
+.account-details {
+  border: 0.5px solid #aaa;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.account-details hr {
+  margin-bottom: 2rem;
+}
+.sub_text {
+  font-size: 1.8rem;
+  color: #888;
+}
+.address-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/*****************************/
+/* edit account */
+/****************************/
+.profile-section {
+  padding: 4.6rem 0 9.6rem;
+  transition: transform 1s, opacity 1s;
+  /* height: 100vh; */
+}
+.heading {
+  display: flex;
+  gap: 1.8rem;
+}
+.input-box {
   width: 50%;
+  height: 6rem;
+  font-size: 2rem;
+  padding: 2rem;
+}
+.address-box {
+  width: 100%;
+  height: 6rem;
+  font-size: 2rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.side-by--side {
+  display: flex;
+  margin: 3rem 0;
+  gap: 1.8rem;
+}
+.btn--confirm:link,
+.btn--confirm:active {
+  margin: 1rem 0;
+}
+
+.quantity-box {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.qty-btn {
+  font-size: 3rem;
+  background-color: #cfab8e;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  padding: 1rem;
+  cursor: pointer;
+}
+.quantity-value {
+  width: 7rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  /* border: none; */
+  background-color: #f8f3f2;
+}
+
+/*****************************/
+/* order details */
+/****************************/
+.order-info {
+  margin: 2rem 0;
+}
+.order-details {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  border: 0.5px solid #aaa;
+  border-radius: 5px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.meal-title {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-transform: capitalize;
+}
+.item-status {
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  color: #fff;
+  font-size: 1.5rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+.sub_text strong {
+  font-weight: 600;
+}
+
+/* .order-img{
+  width: ;
+} */
+/*****************************/
+/* saved items */
+/****************************/
+.wishlist_details {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.wish-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
+  border: 0.5px solid #aaa;
+  border-radius: 5px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rem;
+}
+.btn-smaller {
+  font-size: 1.8rem;
+}
+.order-img {
+  width: 12rem;
+}
+.align-center {
+  margin: 10rem auto;
+}
+
+/*****************************/
+/* delete account section */
+/****************************/
+.delete_account {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin-top: 2rem;
+}
+.email {
+  padding: 2rem;
+  font-size: 2rem;
+}
+.btn--close-act {
+  font-size: 1.8rem;
 }

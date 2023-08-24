@@ -1,137 +1,107 @@
+<?php 
+include('../connect/connect.php');
+include("../functions/function.php");
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food</title>
+ 
+  <link rel="stylesheet" href="../css/general.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="../css/style.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="../css/queries.css?v=<?php echo time(); ?>">
+  <title>Document</title>
 
-  <link rel="stylesheet" href="css/general.css">
-  <link rel="stylesheet" href="css/style.css">
+  <script defer src="../js/meal.js?v=<?php echo time(); ?>"></script>
 </head>
 <body>
-  
-  <header class="header">
-    <a href="#">
-      <img src="img/omnifood-logo.png" alt="Omnifood logo" class="logo" />
-    </a>
-    
-    <form action="" method="get" class="search">
-      <input type="text" class="search__input" placeholder="Search item" name="search_data">
-      <button class="btn btn--search" name="search" type="submit">
-        search
-      </button>
-    </form>
-
-    <nav class="main-nav ">
-      <ul class="main-nav-list">
-        <li><a class="main-nav-link" href="index.php">Home</a></li>
-        <li><a class="main-nav-link" href="#meals">Menu</a></li>
-        <li><a class="main-nav-link nav-cta" href="users/signup.php">Sign in</a></li>    
-      </ul>
-    </nav>
-
-    <button class="btn-mobile-nav">
-      <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
-      <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
-    </button>
-  </header>
+  <?php include("../includes/header.php")?>
 
   <main>
-  <section class="meals-section" id="meals">
+    <!-- restraunt section -->
+    <section class="restaurant-section" id='how'>
       <div class="container center-text">
-        <span class="sub-heading">Meals</span>
+        <span class="sub-heading">Restraunts</span>
         <h2 class="heading-secondary">
-          Omnifood AI chooses from 5,000+ recipes
+          Choose from a variety of restraunts
         </h2>
       </div>
 
-      <div class="container grid grid--3-column margin-bottom-md">
-      <div class="meals">
-      <a href="users/details.php">
-        <img src="img/meals/meal-1.jpg" alt="Japanese Gyozas" class="meals-img" />
-      </a>
-          <div class="meal-content">
-            <div class="meal-tag">
-              <span class="tag tag--vegetarian">Vegetarian</span>
+    <!-- slider for restaurant list -->
+      <div class="slider">
+          <?php 
+            $get_ip = getIPAddress();
+            $select_query = "Select * from admin_restaurant";
+            $result=mysqli_query($con,$select_query);
+            while($row=mysqli_fetch_assoc($result)){
+              $id=$row['id'];
+              $logo= $row['logo'];
+              $name=$row['restaurant_name'];
+          ?>
+            <div class="slide">
+              <div class="restaurant">
+                <div class="restaurant-box">
+                  <a href="meals.php?menu=<?php echo $id ?>#meals">
+                    <button class="restaurant-info">
+                      <img <?php echo "src='../admin/food_img/$logo' alt='$name'"?> class="restaurant-img" />
+                    </button>
+                  </a>
+                </div>
+                <p class="meal-name"><?php echo $name?></p>
+              </div>
             </div>
-
-            <p class="meal-name">Japanese Gyozas</p>
-            <ul class="meal-attributes">
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="flame-outline"></ion-icon>
-                <span>$ <strong>650</strong></span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span><strong>15</strong> mins</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span>Riddle House</span>
-              </li>
-            </ul>
+            <?php
+            } 
+            ?>
+            <button class="slider__btn slider__btn--left">&larr;</button>
+            <button class="slider__btn slider__btn--right">&rarr;</button>
+            <div class="dots"></div>
           </div>
-        </div>
+    </section>
 
-        <div class="meals">
-          <img src="img/meals/meal-2.jpg" alt="Avocado Salad" class="meals-img" />
-          <div class="meal-content">
-            <div class="meal-tag">
-              <span class="tag tag--vegan">Vegan</span>
-              <span class="tag tag--paleo">Paleo</span>
-            </div>
-            <p class="meal-name">Avocado Salad</p>
-            <ul class="meal-attributes">
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="flame-outline"></ion-icon>
-                <span>$ <strong>400</strong></span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span><strong>1</strong> hour</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="star-outline"></ion-icon>
-                <span>GrubHub</span>
-              </li>
+    <section class="meals-section" id="meals">    
+      <div class="container-bg menu-grid">
+        <div class="category">
+          <div class="category-box">
+            <p class="sub-heading color-white center-text margin-bottom--sm">Categories</p>
+            <ul class="category-list">
+              <?php
+              $select_restaurant_query="Select * from category";
+              $result_query=mysqli_query($con,$select_restaurant_query);
+              while($row=mysqli_fetch_assoc($result_query)){
+                $id=$row['id'];
+                $name=$row['name'];
+                echo "<li><a href='?category=$name#meals' class='link-text'>$name</a></li>";
+              }
+              ?>
             </ul>
-          </div>
+          </div>    
         </div>
-
-        <div class="meals">
-          <img src="img/meals/meal-2.jpg" alt="Avocado Salad" class="meals-img" />
-          <div class="meal-content">
-            <div class="meal-tag">
-              <span class="tag tag--vegan">Vegan</span>
-              <span class="tag tag--paleo">Paleo</span>
-            </div>
-            <p class="meal-name">Avocado Salad</p>
-            <ul class="meal-attributes">
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="flame-outline"></ion-icon>
-                <span>$ <strong>400</strong></span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                <span><strong>1</strong> hour</span>
-              </li>
-              <li class="meal-attribute">
-                <ion-icon class="meal-icon" name="star-outline"></ion-icon>
-                <span>GrubHub</span>
-              </li>
-            </ul>
+        <div class="menu-div">
+          <div class="container center-text">
+            <span class="sub-heading margin-bottom--sm">Menu</span>
           </div>
-        </div>
-      </div>
-
-      <div class="container all-recipes">
-        <a href="#" class="link">See all recipes &rarr;</a>
+          <div class="container grid grid--2-column margin-bottom-md">
+            <?php
+              if(isset($_GET['category'])){
+                include('category.php');
+              }
+              else{
+                search_product();
+            }
+            ?>
+          </div>        
+        </div>        
       </div>
     </section>
   </main>
+        
+
   <?php include("../includes/footer.php")?>
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
